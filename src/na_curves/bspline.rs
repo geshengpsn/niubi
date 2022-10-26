@@ -7,7 +7,6 @@ pub type Bspline<const D: usize> = AbstructBspline<SVector<f64, D>>;
 #[test]
 fn test_bsplie_curve_get_point() {
     use nalgebra::Vector2;
-    use crate::basis_function::Knots;
     use crate::abstruct_curve::NonRationalCurve;
     let bspline = Bspline::new(
         vec![
@@ -16,7 +15,7 @@ fn test_bsplie_curve_get_point() {
             Vector2::new(500.0, 400.0),
             Vector2::new(600.0, 300.0),
         ],
-        Knots::new(vec![0.0, 0.0, 0.0, 0.5, 1.0, 1.0, 1.0]),
+        vec![0.0, 0.0, 0.0, 0.5, 1.0, 1.0, 1.0],
         2,
     );
     assert_eq!(

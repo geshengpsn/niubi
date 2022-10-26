@@ -14,9 +14,9 @@ impl<P> AbstructBspline<P>
 where
     P: ControlPoint,
 {
-    pub fn new(control_points: Vec<P>, knots: Knots, degree: usize) -> Self {
+    pub fn new(control_points: Vec<P>, knots: Vec<f64>, degree: usize) -> Self {
         Self {
-            basis_function: BsplineBasis::new(degree, knots),
+            basis_function: BsplineBasis::new(degree, Knots(knots)),
             control_points,
         }
     }

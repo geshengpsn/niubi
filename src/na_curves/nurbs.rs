@@ -7,7 +7,6 @@ pub type NURBS<const D: usize> = AbstructNURBS<SVector<f64, D>>;
 #[test]
 fn test_nurbs_get_value() {
     use crate::abstruct_curve::RationalCurve;
-    use crate::basis_function::Knots;
     use nalgebra::Vector2;
     let curve = NURBS::<3>::new(
         vec![
@@ -16,7 +15,7 @@ fn test_nurbs_get_value() {
             (Vector2::new(500.0, 400.0), 1.0),
             (Vector2::new(600.0, 300.0), 1.0),
         ],
-        Knots(vec![0.0, 0.0, 0.0, 0.5, 1.0, 1.0, 1.0]),
+        vec![0.0, 0.0, 0.0, 0.5, 1.0, 1.0, 1.0],
         2,
     );
     assert_eq!(
@@ -28,7 +27,6 @@ fn test_nurbs_get_value() {
 #[test]
 fn test_nurbs_get_ders() {
     use crate::abstruct_curve::{ParametricCurve, RationalCurve};
-    use crate::basis_function::Knots;
     use nalgebra::Vector2;
     let curve = NURBS::<3>::new(
         vec![
@@ -36,7 +34,7 @@ fn test_nurbs_get_ders() {
             (Vector2::new(1.0, 1.0), 1.0),
             (Vector2::new(0.0, 1.0), 2.0),
         ],
-        Knots(vec![0.0, 0.0, 0.0, 1.0, 1.0, 1.0]),
+        vec![0.0, 0.0, 0.0, 1.0, 1.0, 1.0],
         2,
     );
     assert_eq!(

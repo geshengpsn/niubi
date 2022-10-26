@@ -17,13 +17,13 @@ impl<P> AbstructNURBS<P>
 where
     P: HomoControlPoint,
 {
-    pub fn new(control_points_weights: Vec<(P::CP, f64)>, knots: Knots, degree: usize) -> Self {
+    pub fn new(control_points_weights: Vec<(P::CP, f64)>, knots: Vec<f64>, degree: usize) -> Self {
         let control_points = control_points_weights
             .iter()
             .map(|(p, w)| P::from_control_point(*p, *w))
             .collect::<Vec<_>>();
         Self {
-            basis_function: BsplineBasis::new(degree, knots),
+            basis_function: BsplineBasis::new(degree, Knots(knots)),
             control_points,
         }
     }
