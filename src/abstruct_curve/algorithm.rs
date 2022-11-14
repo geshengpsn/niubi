@@ -1,6 +1,4 @@
-use crate::basis_function::Basis;
-
-use super::{point::ControlPoint, HomoControlPoint};
+use crate::{basis_function::Basis, basics::{ControlPoint, HomoControlPoint}};
 
 pub(crate) fn get_point<B, P>(basis: &B, control_points: &Vec<P>, u: f64) -> P
 where
@@ -46,15 +44,15 @@ where
     ck
 }
 
-pub(crate) fn get_rational_ders<B, HP>(
+pub(crate) fn get_rational_ders<B, P>(
     basis: &B,
-    homo_control_points: &Vec<HP>,
+    homo_control_points: &Vec<HomoControlPoint<P>>,
     der_upper_bond: usize,
     u: f64,
-) -> Vec<HP::CP>
+) -> Vec<P>
 where
     B: Basis,
-    HP: HomoControlPoint,
+    P: ControlPoint,
 {
     let p = basis.degree();
     let du = if der_upper_bond <= p {

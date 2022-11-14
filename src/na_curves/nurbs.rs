@@ -8,7 +8,7 @@ pub type NURBS<const D: usize> = AbstructNURBS<SVector<f64, D>>;
 fn test_nurbs_get_value() {
     use crate::abstruct_curve::RationalCurve;
     use nalgebra::Vector2;
-    let curve = NURBS::<3>::new(
+    let curve = NURBS::<2>::new(
         vec![
             (Vector2::new(200.0, 200.0), 0.1),
             (Vector2::new(300.0, 300.0), 1.0),
@@ -28,7 +28,7 @@ fn test_nurbs_get_value() {
 fn test_nurbs_get_ders() {
     use crate::abstruct_curve::{ParametricCurve, RationalCurve};
     use nalgebra::Vector2;
-    let curve = NURBS::<3>::new(
+    let curve = NURBS::<2>::new(
         vec![
             (Vector2::new(1.0, 0.0), 1.0),
             (Vector2::new(1.0, 1.0), 1.0),
@@ -37,6 +37,7 @@ fn test_nurbs_get_ders() {
         vec![0.0, 0.0, 0.0, 1.0, 1.0, 1.0],
         2,
     );
+    println!("{:?}", curve.get_ders(curve.degree(), 0.0));
     assert_eq!(
         curve.get_ders(curve.degree(), 0.0),
         vec![

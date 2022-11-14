@@ -1,6 +1,6 @@
-use crate::basis_function::{BsplineBasis, Knots};
+use crate::{basis_function::{BsplineBasis, Knots}, basics::ControlPoint};
 
-use super::{point::ControlPoint, NonRationalCurve, ParametricCurve};
+use super::{ NonRationalCurve, ParametricCurve};
 
 pub struct AbstructBspline<P>
 where
@@ -30,11 +30,12 @@ where
     }
 }
 
-impl<P> ParametricCurve<BsplineBasis, P> for AbstructBspline<P>
+impl<P> ParametricCurve<P> for AbstructBspline<P>
 where
     P: ControlPoint,
 {
-    fn basis_function(&self) -> &BsplineBasis {
+    type BasisFunction = BsplineBasis;
+    fn basis_function(&self) -> &Self::BasisFunction {
         &self.basis_function
     }
 
@@ -43,4 +44,4 @@ where
     }
 }
 
-impl<P> NonRationalCurve<BsplineBasis, P> for AbstructBspline<P> where P: ControlPoint {}
+impl<P> NonRationalCurve<P> for AbstructBspline<P> where P: ControlPoint {}

@@ -1,3 +1,4 @@
+use crate::basics::{ControlPoint, HomoControlPoint};
 use crate::basis_function::Basis;
 
 use self::algorithm::get_rational_ders;
@@ -7,19 +8,15 @@ mod algorithm;
 mod bezier;
 mod bspline;
 mod nurbs;
-mod point;
 
 pub use bezier::AbstructBezier;
 pub use bspline::AbstructBspline;
 pub use nurbs::AbstructNURBS;
-pub use point::ControlPoint;
-pub use point::HomoControlPoint;
 
-pub trait ParametricCurve<B, P>
-where
-    B: Basis,
+pub trait ParametricCurve<P>
 {
-    fn basis_function(&self) -> &B;
+    type BasisFunction: Basis;
+    fn basis_function(&self) -> &Self::BasisFunction;
     fn control_points(&self) -> &Vec<P>;
     fn degree(&self) -> usize {
         self.basis_function().degree()
@@ -27,9 +24,8 @@ where
 }
 
 /// 非有理曲线
-pub trait NonRationalCurve<B, P>: ParametricCurve<B, P>
+pub trait NonRationalCurve<P>: ParametricCurve<P>
 where
-    B: Basis,
     P: ControlPoint,
 {
     /// get geometry point from parameter
@@ -50,10 +46,8 @@ where
 }
 
 /// 有理曲线
-pub trait RationalCurve<B, /* homo control point */HP, /* control point */P>: ParametricCurve<B, HP>
+pub trait RationalCurve<P>: ParametricCurve<HomoControlPoint<P>>
 where
-    B: Basis,
-    HP: HomoControlPoint<CP = P>,
     P: ControlPoint,
 {
     fn get_point(&self, u: f64) -> P {

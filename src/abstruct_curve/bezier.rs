@@ -1,6 +1,6 @@
-use crate::basis_function::BernsteinBasis;
+use crate::{basis_function::BernsteinBasis, basics::ControlPoint};
 
-use super::{point::ControlPoint, NonRationalCurve, ParametricCurve};
+use super::{NonRationalCurve, ParametricCurve};
 
 pub struct AbstructBezier<P>
 where
@@ -22,11 +22,13 @@ where
     }
 }
 
-impl<P> ParametricCurve<BernsteinBasis, P> for AbstructBezier<P>
+impl<P> ParametricCurve<P> for AbstructBezier<P>
 where
     P: ControlPoint
 {
-    fn basis_function(&self) -> &BernsteinBasis {
+    type BasisFunction = BernsteinBasis;
+
+    fn basis_function(&self) -> &Self::BasisFunction {
         &self.basis_function
     }
 
@@ -35,7 +37,7 @@ where
     }
 }
 
-impl<P> NonRationalCurve<BernsteinBasis, P> for AbstructBezier<P>
+impl<P> NonRationalCurve<P> for AbstructBezier<P>
 where
     P: ControlPoint
 {

@@ -1,26 +1,26 @@
-use crate::basis_function::{BsplineBasis, Knots};
-
-use super::{
-    point::{ControlPoint, HomoControlPoint},
-    ParametricCurve, RationalCurve,
+use crate::{
+    basics::{ControlPoint, HomoControlPoint},
+    basis_function::{BsplineBasis, Knots},
 };
+
+use super::{ParametricCurve, RationalCurve};
 
 pub struct AbstructNURBS<P>
 where
-    P: HomoControlPoint,
+    P: ControlPoint,
 {
     basis_function: BsplineBasis,
-    control_points: Vec<P>,
+    control_points: Vec<HomoControlPoint<P>>,
 }
 
 impl<P> AbstructNURBS<P>
 where
-    P: HomoControlPoint,
+    P: ControlPoint,
 {
-    pub fn new(control_points_weights: Vec<(P::CP, f64)>, knots: Vec<f64>, degree: usize) -> Self {
+    pub fn new(control_points_weights: Vec<(P, f64)>, knots: Vec<f64>, degree: usize) -> Self {
         let control_points = control_points_weights
             .iter()
-            .map(|(p, w)| P::from_control_point(*p, *w))
+            .map(|(p, w)| HomoControlPoint::<P>::from_control_point(*p, *w))
             .collect::<Vec<_>>();
         Self {
             basis_function: BsplineBasis::new(degree, Knots(knots)),
@@ -29,22 +29,18 @@ where
     }
 }
 
-impl<P> ParametricCurve<BsplineBasis, P> for AbstructNURBS<P>
+impl<P> ParametricCurve<HomoControlPoint<P>> for AbstructNURBS<P>
 where
-    P: HomoControlPoint,
+    P: ControlPoint,
 {
-    fn basis_function(&self) -> &BsplineBasis {
+    type BasisFunction = BsplineBasis;
+    fn basis_function(&self) -> &Self::BasisFunction {
         &self.basis_function
     }
 
-    fn control_points(&self) -> &Vec<P> {
+    fn control_points(&self) -> &Vec<HomoControlPoint<P>> {
         &self.control_points
     }
 }
 
-impl<HP, P> RationalCurve<BsplineBasis, HP, P> for AbstructNURBS<HP>
-where
-    HP: HomoControlPoint<CP = P>,
-    P: ControlPoint,
-{
-}
+impl<P> RationalCurve<P> for AbstructNURBS<P> where P: ControlPoint {}
