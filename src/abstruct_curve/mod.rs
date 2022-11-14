@@ -1,10 +1,9 @@
 use crate::basics::{ControlPoint, HomoControlPoint};
 use crate::basis_function::Basis;
 
-use self::algorithm::get_rational_ders;
-use self::algorithm::{get_ders, get_point};
+use crate::basics::algorithm::get_rational_ders;
+use crate::basics::algorithm::{get_ders, get_point};
 
-mod algorithm;
 mod bezier;
 mod bspline;
 mod nurbs;
