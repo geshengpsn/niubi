@@ -5,7 +5,7 @@ use crate::{
 
 use super::{ParametricSurface, RationalSurface};
 
-struct NurbsSurface<P>
+pub struct NurbsSurfaceBase<P>
 where
     P: ControlPoint,
 {
@@ -14,7 +14,7 @@ where
     control_points: Vec<Vec<HomoControlPoint<P>>>,
 }
 
-impl<P> ParametricSurface<HomoControlPoint<P>> for NurbsSurface<P>
+impl<P> ParametricSurface<HomoControlPoint<P>> for NurbsSurfaceBase<P>
 where
     P: ControlPoint,
 {
@@ -33,4 +33,4 @@ where
     }
 }
 
-impl<P> RationalSurface<P> for NurbsSurface<P> where P: ControlPoint {}
+impl<P> RationalSurface<P> for NurbsSurfaceBase<P> where P: ControlPoint {}

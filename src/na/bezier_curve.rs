@@ -1,14 +1,14 @@
 use nalgebra::SVector;
 
-use crate::abstruct_curve::AbstructBezier;
+use crate::curve::BezierCurveBase;
 
-pub type Bezier<const D: usize> = AbstructBezier<SVector<f64, D>>;
+pub type BezierCurve<const D: usize> = BezierCurveBase<SVector<f64, D>>;
 
 #[test]
 fn test_bezier_curve_basis_function() {
-    use crate::abstruct_curve::NonRationalCurve;
+    use crate::curve::NonRationalCurve;
     use nalgebra::Vector2;
-    let bezier = Bezier::new(vec![
+    let bezier = BezierCurve::new(vec![
         Vector2::new(200.0, 200.0),
         Vector2::new(300.0, 300.0),
         Vector2::new(500.0, 400.0),
@@ -26,10 +26,10 @@ fn test_bezier_curve_basis_function() {
 
 #[test]
 fn test_bezier_curve_basis_get_point() {
-    use crate::abstruct_curve::NonRationalCurve;
+    use crate::curve::NonRationalCurve;
     use assert_approx_eq::assert_approx_eq;
     use nalgebra::Vector2;
-    let bezier = Bezier::new(vec![
+    let bezier = BezierCurve::new(vec![
         Vector2::new(200.0, 200.0),
         Vector2::new(300.0, 300.0),
         Vector2::new(500.0, 400.0),
@@ -53,10 +53,10 @@ fn test_bezier_curve_basis_get_point() {
 
 #[test]
 fn test_bezier_curve_basis_get_ders() {
-    use crate::abstruct_curve::{NonRationalCurve, ParametricCurve};
+    use crate::curve::{NonRationalCurve, ParametricCurve};
     use assert_approx_eq::assert_approx_eq;
     use nalgebra::Vector2;
-    let bezier = Bezier::new(vec![
+    let bezier = BezierCurve::new(vec![
         Vector2::new(200.0, 200.0),
         Vector2::new(300.0, 300.0),
         Vector2::new(500.0, 400.0),

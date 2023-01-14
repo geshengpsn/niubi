@@ -1,14 +1,14 @@
 use nalgebra::SVector;
 
-use crate::abstruct_curve::AbstructBspline;
+use crate::curve::BsplineCurveBase;
 
-pub type Bspline<const D: usize> = AbstructBspline<SVector<f64, D>>;
+pub type BsplineCurve<const D: usize> = BsplineCurveBase<SVector<f64, D>>;
 
 #[test]
 fn test_bsplie_curve_get_point() {
     use nalgebra::Vector2;
-    use crate::abstruct_curve::NonRationalCurve;
-    let bspline = Bspline::new(
+    use crate::curve::NonRationalCurve;
+    let bspline = BsplineCurve::new(
         vec![
             Vector2::new(200.0, 200.0),
             Vector2::new(300.0, 300.0),
@@ -34,8 +34,8 @@ fn test_bsplie_curve_get_point() {
 #[test]
 fn test_bsplie_curve_basis_get_ders() {
     use nalgebra::Vector2;
-    use crate::abstruct_curve::NonRationalCurve;
-    let bspline = Bspline::new_uniform(
+    use crate::curve::NonRationalCurve;
+    let bspline = BsplineCurve::new_uniform(
         vec![
             Vector2::new(200.0, 200.0),
             Vector2::new(300.0, 300.0),

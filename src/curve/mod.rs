@@ -8,9 +8,9 @@ mod bezier;
 mod bspline;
 mod nurbs;
 
-pub use bezier::AbstructBezier;
-pub use bspline::AbstructBspline;
-pub use nurbs::AbstructNURBS;
+pub use bezier::BezierCurveBase;
+pub use bspline::BsplineCurveBase;
+pub use nurbs::NurbsCurveBase;
 
 pub trait ParametricCurve<P> {
     type BasisFunction: Basis;

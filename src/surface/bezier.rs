@@ -5,7 +5,7 @@ use crate::{
 
 use super::{NonRationalSurface, ParametricSurface};
 
-struct BezierSurface<P>
+pub struct BezierSurfaceBase<P>
 where
     P: ControlPoint,
 {
@@ -14,7 +14,7 @@ where
     control_points: Vec<Vec<P>>,
 }
 
-impl<P> BezierSurface<P>
+impl<P> BezierSurfaceBase<P>
 where
     P: ControlPoint,
 {
@@ -27,7 +27,7 @@ where
     }
 }
 
-impl<P: ControlPoint> ParametricSurface<P> for BezierSurface<P> {
+impl<P: ControlPoint> ParametricSurface<P> for BezierSurfaceBase<P> {
     type BasisFunction = BernsteinBasis;
 
     fn u_basis_function(&self) -> &Self::BasisFunction {
@@ -43,7 +43,7 @@ impl<P: ControlPoint> ParametricSurface<P> for BezierSurface<P> {
     }
 }
 
-impl<P: ControlPoint> NonRationalSurface<P> for BezierSurface<P>
+impl<P: ControlPoint> NonRationalSurface<P> for BezierSurfaceBase<P>
 where
     P: ControlPoint,
 {

@@ -1,8 +1,11 @@
-use crate::{basis_function::{BsplineBasis, Knots}, basics::ControlPoint};
+use crate::{
+    basics::ControlPoint,
+    basis_function::{BsplineBasis, Knots},
+};
 
-use super::{ NonRationalCurve, ParametricCurve};
+use super::{NonRationalCurve, ParametricCurve};
 
-pub struct AbstructBspline<P>
+pub struct BsplineCurveBase<P>
 where
     P: ControlPoint,
 {
@@ -10,7 +13,7 @@ where
     control_points: Vec<P>,
 }
 
-impl<P> AbstructBspline<P>
+impl<P> BsplineCurveBase<P>
 where
     P: ControlPoint,
 {
@@ -30,7 +33,7 @@ where
     }
 }
 
-impl<P> ParametricCurve<P> for AbstructBspline<P>
+impl<P> ParametricCurve<P> for BsplineCurveBase<P>
 where
     P: ControlPoint,
 {
@@ -44,4 +47,4 @@ where
     }
 }
 
-impl<P> NonRationalCurve<P> for AbstructBspline<P> where P: ControlPoint {}
+impl<P> NonRationalCurve<P> for BsplineCurveBase<P> where P: ControlPoint {}

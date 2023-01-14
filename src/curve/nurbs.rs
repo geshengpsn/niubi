@@ -5,7 +5,7 @@ use crate::{
 
 use super::{ParametricCurve, RationalCurve};
 
-pub struct AbstructNURBS<P>
+pub struct NurbsCurveBase<P>
 where
     P: ControlPoint,
 {
@@ -13,7 +13,7 @@ where
     control_points: Vec<HomoControlPoint<P>>,
 }
 
-impl<P> AbstructNURBS<P>
+impl<P> NurbsCurveBase<P>
 where
     P: ControlPoint,
 {
@@ -29,7 +29,7 @@ where
     }
 }
 
-impl<P> ParametricCurve<HomoControlPoint<P>> for AbstructNURBS<P>
+impl<P> ParametricCurve<HomoControlPoint<P>> for NurbsCurveBase<P>
 where
     P: ControlPoint,
 {
@@ -43,4 +43,4 @@ where
     }
 }
 
-impl<P> RationalCurve<P> for AbstructNURBS<P> where P: ControlPoint {}
+impl<P> RationalCurve<P> for NurbsCurveBase<P> where P: ControlPoint {}

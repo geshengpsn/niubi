@@ -5,7 +5,7 @@ use crate::{
 
 use super::{NonRationalCurve, ParametricCurve};
 
-pub struct AbstructBezier<P>
+pub struct BezierCurveBase<P>
 where
     P: ControlPoint,
 {
@@ -13,7 +13,7 @@ where
     control_points: Vec<P>,
 }
 
-impl<P> AbstructBezier<P>
+impl<P> BezierCurveBase<P>
 where
     P: ControlPoint, 
 {
@@ -25,7 +25,7 @@ where
     }
 }
 
-impl<P> ParametricCurve<P> for AbstructBezier<P>
+impl<P> ParametricCurve<P> for BezierCurveBase<P>
 where
     P: ControlPoint,
 {
@@ -38,7 +38,7 @@ where
     }
 }
 
-impl<P> NonRationalCurve<P> for AbstructBezier<P>
+impl<P> NonRationalCurve<P> for BezierCurveBase<P>
 where
     P: ControlPoint,
 {

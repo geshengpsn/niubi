@@ -12,6 +12,10 @@ mod bezier;
 mod bspline;
 mod nurbs;
 
+pub use bezier::BezierSurfaceBase;
+pub use bspline::BsplineSurfaceBase;
+pub use nurbs::NurbsSurfaceBase;
+
 pub trait ParametricSurface<P>
 where
     P: ControlPoint,
@@ -104,13 +108,5 @@ where
             }
         }
         output
-    }
-}
-
-#[test]
-fn test_binomial() {
-    for k in 0..=4 {
-        let a = binomial(4, k);
-        println!("{a}");
     }
 }

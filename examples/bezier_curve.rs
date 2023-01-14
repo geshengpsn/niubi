@@ -2,12 +2,12 @@ use std::{fs, process::Command};
 
 use nalgebra::Vector2;
 use niubi::{
-    abstruct_curve::{NonRationalCurve, ParametricCurve, RationalCurve},
-    na_curves::{Bezier, Bspline, NURBS},
+    curve::{NonRationalCurve, ParametricCurve, RationalCurve},
+    na::{BezierCurve, BsplineCurve, NurbsCurve},
 };
 
 fn main() {
-    let curve = Bezier::new(vec![
+    let curve = BezierCurve::new(vec![
         Vector2::new(0.0, 500.0),
         Vector2::new(0.0, 0.0),
         Vector2::new(500.0, 0.0),
@@ -15,7 +15,7 @@ fn main() {
     ]);
     to_svg("bezier", &curve);
 
-    let curve = Bspline::new_uniform(
+    let curve = BsplineCurve::new_uniform(
         vec![
             Vector2::new(0.0, 100.0),
             Vector2::new(0.0, 0.0),
@@ -26,7 +26,7 @@ fn main() {
     );
     to_bspline_svg("bspline", &curve);
 
-    let curve = NURBS::new(
+    let curve = NurbsCurve::new(
         vec![
             (Vector2::new(500.0, 0.0), 1.0),
             (Vector2::new(0.0, 0.0), 1.0),
@@ -38,7 +38,7 @@ fn main() {
     to_nurbs_svg("nurbs", &curve);
 }
 
-fn to_svg(name: &str, curve: &Bezier<2>) {
+fn to_svg(name: &str, curve: &BezierCurve<2>) {
     let mut lines = String::new();
     for i in 0..curve.control_points().len() - 1 {
         // curve.control_points()[i] curve.control_points()[i+1]
@@ -82,7 +82,7 @@ fn to_svg(name: &str, curve: &Bezier<2>) {
     Command::new("open").arg(&path).output().unwrap();
 }
 
-fn to_bspline_svg(name: &str, curve: &Bspline<2>) {
+fn to_bspline_svg(name: &str, curve: &BsplineCurve<2>) {
     let mut lines = String::new();
     for i in 0..curve.control_points().len() - 1 {
         // curve.control_points()[i] curve.control_points()[i+1]
@@ -126,7 +126,7 @@ fn to_bspline_svg(name: &str, curve: &Bspline<2>) {
     Command::new("open").arg(&path).output().unwrap();
 }
 
-fn to_nurbs_svg(name: &str, curve: &NURBS<2>) {
+fn to_nurbs_svg(name: &str, curve: &NurbsCurve<2>) {
     let mut lines = String::new();
     for i in 0..curve.control_points().len() - 1 {
         // curve.control_points()[i] curve.control_points()[i+1]

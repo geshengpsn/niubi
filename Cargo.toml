@@ -6,12 +6,17 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-nalgebra = "0.31.1"
 num="0.4.0"
+
+# optional dependencies
+nalgebra = {version = "0.31.4", optional = true}
 
 [dev-dependencies]
 assert_approx_eq = "1.1.0"
 criterion = "0.4"
+
+[features]
+na = ["dep:nalgebra"]
 
 [[bench]]
 name = "test"

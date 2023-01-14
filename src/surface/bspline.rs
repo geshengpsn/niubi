@@ -2,7 +2,7 @@ use crate::{basics::ControlPoint, basis_function::BsplineBasis};
 
 use super::{NonRationalSurface, ParametricSurface};
 
-struct BsplineSurface<P>
+pub struct BsplineSurfaceBase<P>
 where
     P: ControlPoint,
 {
@@ -11,7 +11,7 @@ where
     control_points: Vec<Vec<P>>,
 }
 
-impl<P> ParametricSurface<P> for BsplineSurface<P>
+impl<P> ParametricSurface<P> for BsplineSurfaceBase<P>
 where
     P: ControlPoint,
 {
@@ -30,4 +30,4 @@ where
     }
 }
 
-impl<P> NonRationalSurface<P> for BsplineSurface<P> where P: ControlPoint {}
+impl<P> NonRationalSurface<P> for BsplineSurfaceBase<P> where P: ControlPoint {}
