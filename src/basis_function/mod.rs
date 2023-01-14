@@ -26,6 +26,14 @@ pub trait Basis {
         self.knots().find_span(self.degree(), u).unwrap()
     }
 
+    /// input:
+    /// - u: parameter from 0 to 1
+    /// - i: index of knot in knot vector from 0 to m
+    /// 
+    /// output: 
+    /// - a vector length = p+1
+    /// 
+    /// \[ N_i-p,p ... N_i-1,p N_i,p ]
     fn get_values(&self, u: f64, i: usize) -> Vec<f64>
     where
         Self:,
@@ -46,8 +54,22 @@ pub trait Basis {
         basis
     }
 
+    /// input:
     /// - u : parameter u
     /// - i : span of u
+    /// 
+    /// output:
+    /// - p+1 * p+1 matrix
+    /// 
+    /// output\[0]: 
+    /// 
+    /// 0 order derivative vector:
+    /// \[ N_i-p,p ... N_i-1,p N_i,p ]
+    /// 
+    /// output\[1]: 
+    /// 
+    /// 1 order derivative vector:
+    /// \[ N'_i-p,p ... N'_i-1,p N'_i,p ]
     fn get_ders(&self, u: f64, i: usize) -> Vec<Vec<f64>> {
         let p = self.degree();
         let knot_vector = self.knots();

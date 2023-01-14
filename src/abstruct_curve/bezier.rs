@@ -1,10 +1,13 @@
-use crate::{basis_function::BernsteinBasis, basics::ControlPoint};
+use crate::{
+    basics::{algorithm::de_casteljaul, ControlPoint},
+    basis_function::BernsteinBasis,
+};
 
 use super::{NonRationalCurve, ParametricCurve};
 
 pub struct AbstructBezier<P>
 where
-    P: ControlPoint
+    P: ControlPoint,
 {
     basis_function: BernsteinBasis,
     control_points: Vec<P>,
@@ -12,7 +15,7 @@ where
 
 impl<P> AbstructBezier<P>
 where
-    P: ControlPoint
+    P: ControlPoint, 
 {
     pub fn new(control_points: Vec<P>) -> Self {
         Self {
@@ -24,14 +27,12 @@ where
 
 impl<P> ParametricCurve<P> for AbstructBezier<P>
 where
-    P: ControlPoint
+    P: ControlPoint,
 {
     type BasisFunction = BernsteinBasis;
-
     fn basis_function(&self) -> &Self::BasisFunction {
         &self.basis_function
     }
-
     fn control_points(&self) -> &Vec<P> {
         &self.control_points
     }
@@ -39,21 +40,10 @@ where
 
 impl<P> NonRationalCurve<P> for AbstructBezier<P>
 where
-    P: ControlPoint
+    P: ControlPoint,
 {
     /// use deCasteljaul algorithm
     fn get_point(&self, u: f64) -> P {
-        let mut q = Vec::new();
-        for v in self.control_points.iter() {
-            q.push(*v);
-        }
-        let n = self.degree();
-        let u1 = 1.0 - u;
-        for k in 1..=n {
-            for i in 0..=(n - k) {
-                q[i] = q[i] * u1 + q[i + 1] * u;
-            }
-        }
-        q[0]
+        de_casteljaul(self.degree(), u, &self.control_points)
     }
 }

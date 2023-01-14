@@ -1,5 +1,6 @@
 use std::ops::{Add, AddAssign, Div, Mul, Sub, SubAssign};
 
+/// control point trait
 pub trait ControlPoint:
     Add<Self, Output = Self>
     + Sub<Self, Output = Self>
@@ -31,6 +32,7 @@ where
     }
 }
 
+/// Control point trait was auto impl for HomoControlPoiny
 #[derive(Debug, Clone, Copy)]
 pub struct HomoControlPoint<CP: ControlPoint> {
     control_point: CP,
@@ -100,13 +102,23 @@ impl<CP: ControlPoint> SubAssign for HomoControlPoint<CP> {
 }
 
 impl<CP: ControlPoint> HomoControlPoint<CP> {
+    pub fn a(&self) -> CP {
+        self.control_point
+    }
+    
+    pub fn w(&self) -> f64 {
+        self.weight
+    }
+
     pub fn split(&self) -> (CP, f64) {
         (self.control_point, self.weight)
     }
+
     pub fn to_control_point_and_weight(&self) -> (CP, f64) {
         let (fat_cp, w) = self.split();
         (fat_cp / w, w)
     }
+    
     pub fn from_control_point(control_point: CP, weight: f64) -> Self {
         Self {
             control_point: control_point * weight,
