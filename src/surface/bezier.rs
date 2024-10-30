@@ -5,6 +5,7 @@ use crate::{
 
 use super::{NonRationalSurface, ParametricSurface};
 
+#[derive(Debug)]
 pub struct BezierSurfaceBase<P>
 where
     P: ControlPoint,

@@ -7,9 +7,10 @@ edition = "2021"
 
 [dependencies]
 num="0.4.0"
+anyhow="1.0.68"
 
 # optional dependencies
-nalgebra = {version = "0.31.4", optional = true}
+nalgebra = {version = "0.32.1", optional = true}
 
 [dev-dependencies]
 assert_approx_eq = "1.1.0"

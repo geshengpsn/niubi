@@ -7,6 +7,7 @@ pub struct BsplineBasis {
 
 impl BsplineBasis {
     ///create any bspline basis function
+    /// TODO input only knots 
     pub fn new(degree: usize, knots: Knots) -> Self {
         Self { degree, knots }
     }

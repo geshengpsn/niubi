@@ -1,5 +1,6 @@
 use super::{knots::Knots, Basis};
 
+#[derive(Debug)]
 pub struct BernsteinBasis {
     degree: usize,
     knots: Knots,

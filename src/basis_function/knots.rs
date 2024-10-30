@@ -6,6 +6,7 @@ use super::BasisFunctionError;
 
 /// # trait of knot vector
 /// knot vector provides find_span() and Index
+#[derive(Debug)]
 pub struct Knots(pub(crate) Vec<f64>);
 
 impl Knots {

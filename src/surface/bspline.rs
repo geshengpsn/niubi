@@ -11,6 +11,27 @@ where
     control_points: Vec<Vec<P>>,
 }
 
+impl<P> BsplineSurfaceBase<P>
+where
+    P: ControlPoint,
+{
+    /// TODO better error handle, unwarp() is bad
+    /// 
+    /// TODO refine all error handle
+    pub fn new_uniform(control_points: Vec<Vec<P>>, u_degree: usize, v_degree: usize) -> Self {
+        Self {
+            u_basis_function: BsplineBasis::new_uniform(u_degree, control_points.len()).unwrap(),
+            v_basis_function: BsplineBasis::new_uniform(v_degree, control_points[0].len()).unwrap(),
+            control_points,
+        }
+    }
+
+    /// if this work, user do no need to use trait to use basic algorithms
+    pub fn get_point(&self) {
+        <Self as NonRationalSurface<P>>::get_point(&self, 0., 0.);
+    }
+}
+
 impl<P> ParametricSurface<P> for BsplineSurfaceBase<P>
 where
     P: ControlPoint,

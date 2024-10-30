@@ -1,4 +1,7 @@
-use std::ops::{Add, AddAssign, Div, Mul, Sub, SubAssign};
+use std::{
+    fmt::Debug,
+    ops::{Add, AddAssign, Div, Mul, Sub, SubAssign},
+};
 
 /// control point trait
 pub trait ControlPoint:
@@ -10,6 +13,7 @@ pub trait ControlPoint:
     + SubAssign<Self>
     + Copy
     + Clone
+    + Debug
 {
     /// origin
     fn zeros() -> Self;
@@ -25,7 +29,8 @@ where
         + AddAssign<Self>
         + SubAssign<Self>
         + Copy
-        + Clone,
+        + Clone
+        + Debug,
 {
     fn zeros() -> Self {
         T::default()
@@ -105,7 +110,7 @@ impl<CP: ControlPoint> HomoControlPoint<CP> {
     pub fn a(&self) -> CP {
         self.control_point
     }
-    
+
     pub fn w(&self) -> f64 {
         self.weight
     }
@@ -118,7 +123,7 @@ impl<CP: ControlPoint> HomoControlPoint<CP> {
         let (fat_cp, w) = self.split();
         (fat_cp / w, w)
     }
-    
+
     pub fn from_control_point(control_point: CP, weight: f64) -> Self {
         Self {
             control_point: control_point * weight,
